@@ -13,7 +13,6 @@
         <br>
         <label for="content">Texto:</label>
         <textarea id="content" name="content" required></textarea>
-        <!-- Corrigido o nome do campo para 'content' -->
         <br>
         <label for="user_id">ID do Usuário:</label>
         <input type="text" id="user_id" name="user_id" required>
