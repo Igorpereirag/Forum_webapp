@@ -24,8 +24,6 @@
         <input type="submit" value="Adicionar Comentário">
         <input type="hidden" name="topicoId" value="${topico.id}">
     </form>
-    
-    <!-- Link para voltar para a Tela Tópicos -->
     <p><a href="<c:url value='/topicos'/>">Voltar para Tópicos</a></p>
 </body>
 </html>
