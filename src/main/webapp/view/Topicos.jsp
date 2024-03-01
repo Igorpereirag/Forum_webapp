@@ -27,7 +27,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Loop through users and display them -->
                         <c:forEach var="usuario" items="${usuarios}">
                             <tr>
                                 <td>${usuario.id}</td>
