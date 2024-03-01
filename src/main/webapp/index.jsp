@@ -16,11 +16,9 @@
         <br>
         <input type="submit" value="Login">
     </form>
-    <!-- Exibir mensagem de erro aqui, se necessário -->
     <c:if test="${not empty error}">
         <p style="color: red;">${error}</p>
     </c:if>
-    <!-- Link para a tela de cadastro -->
     <p>Não tem uma conta? <a href="${pageContext.request.contextPath}/view/Cadastro.jsp">Cadastre-se aqui</a></p>
 </body>
 </html>
