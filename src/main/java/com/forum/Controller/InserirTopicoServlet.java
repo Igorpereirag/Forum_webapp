@@ -28,7 +28,7 @@ public class InserirTopicoServlet extends HttpServlet {
         Topico topico = new Topico(titulo, content, userId);
 
         
-        boolean sucesso = topicoDAO.adicionarTopico(topico);
+        boolean sucesso = topicoDAO.adicionarTopico(topico, null);
         System.out.println(topico);
 
         if (sucesso) {
