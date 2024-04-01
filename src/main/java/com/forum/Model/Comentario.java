@@ -7,8 +7,8 @@ public class Comentario {
     private int idTopico;
 
 
-    public Comentario(int id, String content, String user_id, int idTopico) {
-        this.id = id;
+    public Comentario(String content, String user_id, int idTopico) {
+    
         this.content = content;
         this.user_id = user_id;
         this.idTopico = idTopico;
