@@ -26,15 +26,19 @@ public class ComentarioDAO {
             preparedStatement.setString(2, comentario.getUser_id());
             preparedStatement.setInt(3, comentario.getIdTopico());
             preparedStatement.executeUpdate();
-
-           
+    
+            
             Usuario usuario = usuarioDAO.getUsuarioById(comentario.getUser_id());
-            usuario.setPontos(usuario.getPontos() + 3);
-            usuarioDAO.atualizarPontosUsuario(usuario);
+            if (usuario != null) {
+               
+                usuario.setPontos(usuario.getPontos() + 3);
+                usuarioDAO.atualizarPontosUsuario(usuario);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
 
     public List<Comentario> getComentarioByTopicId(int idTopico) {
         List<Comentario> comentarios = new ArrayList<>();
@@ -42,7 +46,7 @@ public class ComentarioDAO {
             preparedStatement.setInt(1, idTopico);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Comentario comentario = new Comentario(idTopico, resultSet.getString("content"), resultSet.getString("user_id"));
+                Comentario comentario = new Comentario(resultSet.getString("content"), resultSet.getString("user_id"), idTopico);
                 comentarios.add(comentario);
             }
         } catch (SQLException e) {
