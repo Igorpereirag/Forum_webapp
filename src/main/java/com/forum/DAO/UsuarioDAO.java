@@ -52,4 +52,35 @@ public class UsuarioDAO {
         }
         return usuarios;
     }
+
+    public Usuario getUsuarioById(String id) {
+        Usuario usuario = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM usuarios WHERE login = ?");
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String nome = resultSet.getString("nome");
+                String login = resultSet.getString("login");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                int pontos = resultSet.getInt("pontos");
+                usuario = new Usuario(nome, login, email, senha, pontos);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuario;
+    }
+
+    public void atualizarPontosUsuario(Usuario usuario) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE usuarios SET pontos = ? WHERE login = ?");
+            preparedStatement.setInt(1, usuario.getPontos());
+            preparedStatement.setString(2, usuario.getLogin());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
