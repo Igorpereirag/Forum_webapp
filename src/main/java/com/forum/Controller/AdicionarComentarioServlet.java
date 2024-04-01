@@ -1,6 +1,8 @@
 package com.forum.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,12 @@ public class AdicionarComentarioServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        comentarioDAO = new ComentarioDAO();
+        try {
+            comentarioDAO = new ComentarioDAO();
+        } catch (SQLException e) {
+           
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -27,7 +34,7 @@ public class AdicionarComentarioServlet extends HttpServlet {
         String userId = request.getParameter("user_id");
         int idTopico = Integer.parseInt(request.getParameter("id_topico"));
 
-        Comentario comentario = new Comentario(texto, userId, idTopico);
+        Comentario comentario = new Comentario( texto, userId, idTopico);
 
         comentarioDAO.adicionarComentario(comentario);
 
