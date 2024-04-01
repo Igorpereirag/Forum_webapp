@@ -12,7 +12,7 @@ import com.forum.Util.DatabaseUtil;
 
 public class TopicoDAO {
     
-    public boolean adicionarTopico(Topico topico) {
+ public boolean adicionarTopico(Topico topico, Usuario usuario) {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO topicos(titulo, content, user_id) VALUES (?, ?, ?)")) {
             preparedStatement.setString(1, topico.getTitulo());
@@ -20,13 +20,27 @@ public class TopicoDAO {
             preparedStatement.setString(3, topico.getUserId());
             
             int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
+            if (rowsAffected > 0) {
+                usuario.setPontos(usuario.getPontos() + 10);
+                atualizarPontosUsuario(usuario); 
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
+   private void atualizarPontosUsuario(Usuario usuario) {
+    try (Connection connection = DatabaseUtil.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE usuarios SET pontos = ? WHERE user_id = ?")) {
+        preparedStatement.setInt(1, usuario.getPontos());
+        preparedStatement.setString(2, usuario.getUserId());
+        
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     public List<Topico> getAllTopicos() {
         List<Topico> topicos = new ArrayList<>();
         try (Connection connection = DatabaseUtil.getConnection();
