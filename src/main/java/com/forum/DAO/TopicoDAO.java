@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.forum.Model.Topico;
+import com.forum.Model.Usuario;
 import com.forum.Util.DatabaseUtil;
 
 public class TopicoDAO {
@@ -34,7 +35,7 @@ public class TopicoDAO {
     try (Connection connection = DatabaseUtil.getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement("UPDATE usuarios SET pontos = ? WHERE user_id = ?")) {
         preparedStatement.setInt(1, usuario.getPontos());
-        preparedStatement.setString(2, usuario.getUserId());
+        preparedStatement.setString(2, usuario.getLogin());
         
         preparedStatement.executeUpdate();
     } catch (SQLException e) {
